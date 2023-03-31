@@ -17,8 +17,8 @@ public abstract class Dispositivo {
         return estado;
     }
 
-    public boolean setEstado(Boolean estado) {
-        return this.estado = estado;
+    public void ligarDesligar() {
+        this.estado = !this.estado;
     }
 
     public abstract String getTipo();
