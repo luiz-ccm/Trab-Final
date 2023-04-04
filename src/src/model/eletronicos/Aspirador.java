@@ -8,8 +8,8 @@ import java.util.List;
 public class Aspirador extends Dispositivo{
 
     private List<Comodo> comodos;
-    public Aspirador(String nome) {
-        super(nome);
+    public Aspirador() {
+        super();
         this.comodos = new ArrayList<>();
     }
 

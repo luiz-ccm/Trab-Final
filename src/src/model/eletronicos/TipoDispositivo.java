@@ -17,4 +17,14 @@ public enum TipoDispositivo {
     public String getNome() {
         return nome;
     }
+
+    public static TipoDispositivo enumCorrespondente(String nome) {
+        for (TipoDispositivo tipo : TipoDispositivo.values()) {
+            if (tipo.getNome().equalsIgnoreCase(nome)) {
+                return tipo;
+            }
+        }
+        return null;
+    }
+
 }

@@ -4,8 +4,8 @@ public abstract class DispositivoAudioVideo extends Dispositivo {
     private int volume;
     private int canal;
 
-    public DispositivoAudioVideo(String nome) {
-        super(nome);
+    public DispositivoAudioVideo() {
+        super();
         this.volume = 0;
     }
 

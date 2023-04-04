@@ -3,8 +3,8 @@ package model.eletronicos;
 public class ArCondicionado extends Dispositivo{
     private Integer temperatuaAmbiente;
     private Integer temperaturaTarget;
-    public ArCondicionado(String nome) {
-        super(nome);
+    public ArCondicionado() {
+        super();
 
     }
 

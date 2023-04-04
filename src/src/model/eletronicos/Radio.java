@@ -1,8 +1,8 @@
 package model.eletronicos;
 
 public class Radio extends DispositivoAudioVideo {
-    public Radio(String nome) {
-        super(nome);
+    public Radio() {
+        super();
     }
 
     @Override

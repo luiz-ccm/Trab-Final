@@ -2,8 +2,8 @@ package model.eletronicos;
 
 public class TV extends DispositivoAudioVideo {
 
-    public TV(String nome) {
-        super(nome);
+    public TV() {
+        super();
     }
 
     @Override

@@ -1,16 +1,21 @@
 package model.eletronicos;
 
-public abstract class Dispositivo {
+import java.io.Serializable;
+
+public abstract class Dispositivo implements Serializable {
     private String nome;
     private boolean estado;
 
-    public Dispositivo(String nome) {
-        this.nome = nome;
+    public Dispositivo() {
         this.estado = false;
     }
 
     public String getNome() {
         return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public boolean getEstado() {

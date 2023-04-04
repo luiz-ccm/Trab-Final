@@ -2,8 +2,8 @@ package model.eletronicos;
 
 public class Cafeteira extends Dispositivo{
 
-    public Cafeteira(String nome) {
-        super(nome);
+    public Cafeteira() {
+        super();
     }
     @Override
     public String getTipo() {
