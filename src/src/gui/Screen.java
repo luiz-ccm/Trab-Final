@@ -31,7 +31,7 @@ public class Screen extends JFrame implements ActionListener {
         setVisible(true);
         setSize(width,height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
+        setResizable(true);
         setLayout(null);
         setLocationRelativeTo(null);
 

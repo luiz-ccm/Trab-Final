@@ -26,6 +26,7 @@ public class CadastrarDispositivo extends JPanel {
     private JTextField nomeDispositivo;
     List<TipoDispositivo> tipoDispositivo;
 
+    private JComboBox<TipoDispositivo> comboBoxTipoDispositivo;
 
     List<JCheckBox> checkboxes = new ArrayList<>();
 
@@ -49,33 +50,29 @@ public class CadastrarDispositivo extends JPanel {
     }
 
     private void adicionandoPainelCadastroDeDispositivos(){
-        JLabel tituloComodos = new JLabel("Tipo de dispositivo:");
+        JLabel tituloComodos = new JLabel("Dispositivo:");
         this.add(tituloComodos);
         tituloComodos.setBounds(20,60,150,30);
 
         this.tipoDispositivo = Arrays.asList(TipoDispositivo.values());
         this.panelListaDispositivo = new JPanel();
         this.panelListaDispositivo.setLayout(new GridLayout(2,5));
-        this.panelListaDispositivo.setBounds(20,85,550,140);
+        this.panelListaDispositivo.setBounds(20,85,200,50);
 //        this.panelListaDispositivo.add(this.checkBox);
-
-        tipoDispositivo.forEach(disp ->{
-            JCheckBox checkBox = new JCheckBox(disp.getNome());
-            this.checkboxes.add(checkBox);
-            this.panelListaDispositivo.add(checkBox);
-        });
+        this.comboBoxTipoDispositivo = new JComboBox<>(TipoDispositivo.values());
+        this.panelListaDispositivo.add(this.comboBoxTipoDispositivo);
 
 
         JLabel lableNomeDispositivo = new JLabel("Nome: ");
-        lableNomeDispositivo.setBounds(20,250,100,25);
+        lableNomeDispositivo.setBounds(250,85,100,25);
         this.add(lableNomeDispositivo);
 
         this.nomeDispositivo = new JTextField();
-        this.nomeDispositivo.setBounds(60,250,100,25);
+        this.nomeDispositivo.setBounds(300,85,100,25);
         this.add(nomeDispositivo);
 
         JButton btnCadastrar = new JButton("cadastrar");
-        btnCadastrar.setBounds(200,400,100,25);
+        btnCadastrar.setBounds(200,150,130,25);
         btnCadastrar.addActionListener(this::cadastrar);
         this.add(btnCadastrar);
 
@@ -83,30 +80,14 @@ public class CadastrarDispositivo extends JPanel {
     }
 
     private void cadastrar(ActionEvent actionEvent) {
-        List<String> dispositivosSelecionados = this.checkboxes.stream()
-                        .filter(JCheckBox::isSelected)
-                        .map(JCheckBox::getText)
-                        .collect(Collectors.toList());
-
-        dispositivosSelecionados.forEach(disp -> {
-            Dispositivo dispositivo = instanciar(enumCorrespondente(disp));
-            dispositivo.setNome(this.nomeDispositivo.getText());
-            System.out.println(dispositivo);
-            System.out.println(enumCorrespondente(disp));
-            System.out.println(this.nomeDispositivo.getText());
-            try {
-                salvarDispositivo(dispositivo);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-//            try {
-//                System.out.println(dispositivo);
-//                dispositivo.setNome(this.nomeDispositivo.getText());
-//                salvarDispositivo(dispositivo);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-        });
+        Dispositivo dispositivo = instanciar((TipoDispositivo) this.comboBoxTipoDispositivo.getSelectedItem());
+        dispositivo.setNome(this.nomeDispositivo.getText());
+        System.out.print(dispositivo);
+        try {
+            salvarDispositivo(dispositivo);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         }
 

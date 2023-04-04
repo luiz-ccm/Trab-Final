@@ -15,13 +15,11 @@ public class DispositivoRepository {
             arquivo.createNewFile();
         }
 
-        FileOutputStream fileOut = new FileOutputStream("src/src/db/dispositivos.ser");
+        FileOutputStream fileOut = new FileOutputStream("src/src/db/dispositivos.ser",true);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(dispositivo);
         out.close();
         fileOut.close();
         System.out.println("Objeto serializado e salvo em db/dispositivos.ser");
     }
-
-    public static List<Dispositivo> listAll
 }

@@ -1,9 +1,12 @@
 package model.eletronicos;
 
+import model.comodos.Comodo;
+
 import java.io.Serializable;
 
 public abstract class Dispositivo implements Serializable {
     private String nome;
+    private Comodo comodo;
     private boolean estado;
 
     public Dispositivo() {
