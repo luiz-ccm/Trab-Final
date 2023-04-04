@@ -3,11 +3,13 @@ package gui;
 import gui.acoes.CadastrarComodo;
 import gui.acoes.CadastrarDispositivo;
 import gui.acoes.ListarDispositivos;
+import model.eletronicos.Dispositivo;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class Screen extends JFrame implements ActionListener {
     private JComponent componenteAtivo;
@@ -15,6 +17,9 @@ public class Screen extends JFrame implements ActionListener {
     private JButton btnCadastrarDispositivo;
     private JButton btnCadastrarComodo;
     private JButton btnListarDispositivos;
+
+
+    private List<Dispositivo> dispositivoList;
     public Screen(){
         int width = 800;
         int height = 500;
@@ -68,13 +73,13 @@ public class Screen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if(actionEvent.getActionCommand().equals("cadastrar dispositivo")){
-            adicionarTelaDeAcao(new CadastrarDispositivo());
+            adicionarTelaDeAcao(new CadastrarDispositivo(this));
         }
         if(actionEvent.getActionCommand().equals("cadastrar comodo")){
-            adicionarTelaDeAcao(new CadastrarComodo());
+            adicionarTelaDeAcao(new CadastrarComodo(this));
         }
         if(actionEvent.getActionCommand().equals("listar dispositivos")){
-            adicionarTelaDeAcao(new ListarDispositivos());
+            adicionarTelaDeAcao(new ListarDispositivos(this));
         }
     }
 

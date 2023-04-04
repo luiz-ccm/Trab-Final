@@ -7,11 +7,13 @@ import java.util.List;
 
 public class Comodo {
     private String nome;
+    private TipoComodo tipoComodo;
     private List<Dispositivo> dispositivos;
     private Integer temperatura;
 
-    public Comodo(String nome) {
+    public Comodo(String nome, TipoComodo tipoComodo) {
         this.nome = nome;
+        this.tipoComodo = tipoComodo;
         this.temperatura = 24;
         this.dispositivos = new ArrayList<>();
     }
@@ -24,8 +26,16 @@ public class Comodo {
         this.temperatura = temperatura;
     }
 
+    public String getComodo() {
+        return nome;
+    }
+
     public String getNome() {
         return nome;
+    }
+
+    public TipoComodo getTipoComodo() {
+        return tipoComodo;
     }
 
     public void salvarStatus(){

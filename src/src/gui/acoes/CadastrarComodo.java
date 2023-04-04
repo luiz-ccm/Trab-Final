@@ -1,20 +1,21 @@
 package gui.acoes;
 
-import model.comodos.Comodo;
+import gui.Screen;
+import model.comodos.TipoComodo;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 
-public class CadastrarComodo extends JPanel implements ActionListener {
+public class CadastrarComodo extends JPanel {
+    private JPanel panelListaComodos;
+    private List<TipoComodo> tipoComodo;
 
-    private JLabel labelNomeComodo;
-    private JTextField textFieldNomeComodo;
-    private  JButton btnCadastrar;
+    private JComboBox<TipoComodo> comboBoxComodo;
 
-    private JButton btnListarComodos;
-    public CadastrarComodo(){
+    public CadastrarComodo(Screen component){
         int width = 550;
         int height = 500;
         this.setLayout(null);
@@ -23,37 +24,37 @@ public class CadastrarComodo extends JPanel implements ActionListener {
         this.setBounds(250,0,width,height);
         this.setVisible(true);
 
+        JLabel tituloGeral = new JLabel("CADASTRAR COMODO");
+        tituloGeral.setFont(new Font(tituloGeral.getName(), tituloGeral.getFont().getStyle(),30));
+        this.add(tituloGeral);
+        tituloGeral.setBounds(90,10,550,30);
 
-        this.labelNomeComodo = new JLabel("Nome do comodo:");
-        this.add(labelNomeComodo);
-        this.labelNomeComodo.setBounds(20,50,130,30);
-
-        this.textFieldNomeComodo = new JTextField();
-        this.add(textFieldNomeComodo);
-        textFieldNomeComodo.setBounds(130,50,100,30);
-
-        this.btnCadastrar = new JButton("cadastrar");
-        this.add(this.btnCadastrar);
-        this.btnCadastrar.setBounds(260,50,100,30);
-        this.btnCadastrar.addActionListener(this::salvarComodo);
-
-        this.btnListarComodos = new JButton("listar comodos");
-
+        adicionandoPainelCadastroDeComodos();
 
     }
 
+    private void adicionandoPainelCadastroDeComodos(){
+        JLabel tituloComodos = new JLabel("Tipo de cômodo:");
+        this.add(tituloComodos);
+        tituloComodos.setBounds(40,60,100,30);
+
+
+        this.tipoComodo = Arrays.asList(TipoComodo.values());
+        this.panelListaComodos = new JPanel();
+        this.panelListaComodos.setLayout(new GridLayout());
+        this.panelListaComodos.setBounds(40,100,100,30);
+        this.comboBoxComodo = new JComboBox<>(TipoComodo.values());
+        this.panelListaComodos.add(comboBoxComodo);
+
+        JLabel tituloDispositivos = new JLabel("Dispositivos:");
+        this.add(tituloDispositivos);
+        tituloDispositivos.setBounds(250,60,100,30);
+
+        this.add(this.panelListaComodos);
+    }
     private void salvarComodo(ActionEvent actionEvent) {
-        Comodo comodo = new Comodo(this.labelNomeComodo.getText());
-    }
-
-
-
-
-
-
-
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
 
     }
+
+
 }
