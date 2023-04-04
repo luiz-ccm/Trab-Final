@@ -1,11 +1,20 @@
 package model.eletronicos;
 
-public abstract class DispositivoAudio extends Dispositivo {
+public abstract class DispositivoAudioVideo extends Dispositivo {
     private int volume;
+    private int canal;
 
-    public DispositivoAudio(String nome) {
+    public DispositivoAudioVideo(String nome) {
         super(nome);
         this.volume = 0;
+    }
+
+    public int getCanal() {
+        return canal;
+    }
+
+    public void setCanal(int canal) {
+        this.canal = canal;
     }
 
     public int getVolume() {

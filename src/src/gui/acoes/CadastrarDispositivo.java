@@ -14,5 +14,6 @@ public class CadastrarDispositivo extends JPanel {
         this.setVisible(true);
 
 
+
     }
 }

@@ -14,5 +14,6 @@ public class ListarDispositivos extends JPanel {
         this.setVisible(true);
 
 
+
     }
 }
