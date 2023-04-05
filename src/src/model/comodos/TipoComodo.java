@@ -1,8 +1,9 @@
 package model.comodos;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public enum TipoComodo {
+public enum TipoComodo  {
     QUARTO("Quarto"),
     SALA("Sala"),
     COZINHA("Cozinha"),

@@ -2,24 +2,68 @@ package repository;
 
 import model.eletronicos.Dispositivo;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DispositivoRepository {
-    public static void salvarDispositivo(Dispositivo dispositivo) throws IOException {
-        File arquivo = new File("src/src/db/dispositivos.ser");
-        if (!arquivo.exists()) {
-            arquivo.createNewFile();
+    private static final String ARQUIVO_BD = "src/src/db/dispositivos.ser";
+
+    public static void salvarDispositivo(Dispositivo dispositivo) throws IOException, ClassNotFoundException {
+        File arquivo = new File(ARQUIVO_BD);
+
+        List<Dispositivo> dispositivos;
+        if (arquivo.exists()) {
+            dispositivos = listarTodosDispositivos();
+        } else {
+            dispositivos = new ArrayList<>();
         }
 
-        FileOutputStream fileOut = new FileOutputStream("src/src/db/dispositivos.ser",true);
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(dispositivo);
-        out.close();
-        fileOut.close();
-        System.out.println("Objeto serializado e salvo em db/dispositivos.ser");
+        if (buscarDispositivoPorNomeETipo(dispositivo.getNome(), dispositivo.getTipo()) == null) {
+            dispositivos.add(dispositivo);
+
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO_BD))) {
+                out.writeObject(dispositivos);
+            }
+        } else {
+            throw new RuntimeException("Já existe um dispositivo com esse nome e tipo");
+        }
+    }
+
+    public static List<Dispositivo> listarTodosDispositivos() throws IOException, ClassNotFoundException {
+        File arquivo = new File(ARQUIVO_BD);
+
+        if (arquivo.exists()) {
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ARQUIVO_BD))) {
+                List<Dispositivo> dispositivos = (List<Dispositivo>) in.readObject();
+                return dispositivos;
+            }
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public static Dispositivo buscarDispositivoPorNome(String nome) throws IOException, ClassNotFoundException {
+        List<Dispositivo> dispositivos = listarTodosDispositivos();
+
+        for (Dispositivo dispositivo : dispositivos) {
+            if (dispositivo.getNome().equals(nome)) {
+                return dispositivo;
+            }
+        }
+
+        throw new RuntimeException("Dispositivo não encontrado");
+    }
+
+    public static Dispositivo buscarDispositivoPorNomeETipo(String nome, String tipo) throws IOException, ClassNotFoundException {
+        List<Dispositivo> dispositivos = listarTodosDispositivos();
+
+        for (Dispositivo dispositivo : dispositivos) {
+            if (dispositivo.getNome().equals(nome) && dispositivo.getTipo().equals(tipo)) {
+                return dispositivo;
+            }
+        }
+
+        return null;
     }
 }

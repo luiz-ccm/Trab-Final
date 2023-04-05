@@ -2,10 +2,11 @@ package model.comodos;
 
 import model.eletronicos.Dispositivo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Comodo {
+public class Comodo implements Serializable {
     private String nome;
     private TipoComodo tipoComodo;
     private List<Dispositivo> dispositivos;
@@ -38,9 +39,7 @@ public class Comodo {
         return tipoComodo;
     }
 
-    public void salvarStatus(){
 
-    };
 
     public void adicionarDispositivo(Dispositivo dispositivo) {
         dispositivos.add(dispositivo);

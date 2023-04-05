@@ -9,14 +9,17 @@ import repository.DispositivoRepository;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.DataInput;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static model.eletronicos.TipoDispositivo.enumCorrespondente;
 import static model.util.Instanciador.instanciar;
+import static repository.DispositivoRepository.listarTodosDispositivos;
 import static repository.DispositivoRepository.salvarDispositivo;
 
 public class CadastrarDispositivo extends JPanel {
@@ -58,7 +61,6 @@ public class CadastrarDispositivo extends JPanel {
         this.panelListaDispositivo = new JPanel();
         this.panelListaDispositivo.setLayout(new GridLayout(2,5));
         this.panelListaDispositivo.setBounds(20,85,200,50);
-//        this.panelListaDispositivo.add(this.checkBox);
         this.comboBoxTipoDispositivo = new JComboBox<>(TipoDispositivo.values());
         this.panelListaDispositivo.add(this.comboBoxTipoDispositivo);
 
@@ -75,20 +77,19 @@ public class CadastrarDispositivo extends JPanel {
         btnCadastrar.setBounds(200,150,130,25);
         btnCadastrar.addActionListener(this::cadastrar);
         this.add(btnCadastrar);
-
         this.add(this.panelListaDispositivo);
     }
-
-    private void cadastrar(ActionEvent actionEvent) {
+        private void cadastrar(ActionEvent actionEvent) {
         Dispositivo dispositivo = instanciar((TipoDispositivo) this.comboBoxTipoDispositivo.getSelectedItem());
         dispositivo.setNome(this.nomeDispositivo.getText());
-        System.out.print(dispositivo);
         try {
             salvarDispositivo(dispositivo);
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
         }
+
+
 
 }

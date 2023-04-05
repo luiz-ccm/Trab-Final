@@ -1,6 +1,8 @@
 package model.eletronicos;
 
-public class ArCondicionado extends Dispositivo{
+import java.io.Serializable;
+
+public class ArCondicionado extends Dispositivo implements Serializable {
     private Integer temperatuaAmbiente;
     private Integer temperaturaTarget;
     public ArCondicionado() {
@@ -22,6 +24,6 @@ public class ArCondicionado extends Dispositivo{
 
     @Override
     public String getTipo() {
-        return null;
+        return "Ar condicionado";
     }
 }
