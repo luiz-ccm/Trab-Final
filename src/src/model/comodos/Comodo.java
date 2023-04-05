@@ -50,10 +50,7 @@ public class Comodo implements Serializable {
      * Método get do nome do comodo
      * @return valor do atributo nome
      */
-    public String getComodo() {
-        return nome;
-    }
-
+    
     public String getNome() {
         return nome;
     }
