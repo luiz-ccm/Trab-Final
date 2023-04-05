@@ -1,3 +1,9 @@
+/**
+ * Classe para organizar comodos
+ * 
+ */
+
+
 package repository;
 
 import model.comodos.Comodo;
@@ -9,6 +15,10 @@ import java.util.List;
 public class ComodoRepository {
     private static final String ARQUIVO_BD = "src/src/db/comodos.ser";
 
+    /**
+     * Método para salvar comodo em arquivo
+     * @param comodo comodo que será salvo
+     */
     public static void salvarComodo(Comodo comodo) throws IOException, ClassNotFoundException {
         File arquivo = new File(ARQUIVO_BD);
 
@@ -27,6 +37,10 @@ public class ComodoRepository {
         }
     }
 
+    /**
+     * Método para listar os comodos
+     * @return lista de comodos
+     */
     public static List<Comodo> listarTodosComodos() throws IOException, ClassNotFoundException {
         File arquivo = new File(ARQUIVO_BD);
 
@@ -40,6 +54,11 @@ public class ComodoRepository {
         }
     }
 
+    /**
+     * Método para buscar comodo pelo nome
+     * @param nome nome do comodo procurado
+     * @return comodo correpondente na lista de todos os comodos
+     */
     public static Comodo buscarComodoPorNome(String nome) throws IOException, ClassNotFoundException {
         List<Comodo> comodos = listarTodosComodos();
         for (Comodo comodo : comodos) {
@@ -50,6 +69,11 @@ public class ComodoRepository {
         return null;
     }
 
+    /**
+     * Método para verificar se já existe um comodo com o mesmo nome na lista de comodos
+     * @param comodo novo comodo
+     * @param comodos lista de todos os comodos
+     */
     private static void validarComodo(List<Comodo> comodos, Comodo comodo) {
         for (Comodo c : comodos) {
             if (c.getNome().equalsIgnoreCase(comodo.getNome()) && c.getTipoComodo().equals(comodo.getTipoComodo())) {

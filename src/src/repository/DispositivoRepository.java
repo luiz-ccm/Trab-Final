@@ -1,3 +1,8 @@
+/**
+ * Classe para organizar os dispositivos
+ * 
+ */
+
 package repository;
 
 import model.eletronicos.Dispositivo;
@@ -9,6 +14,10 @@ import java.util.List;
 public class DispositivoRepository {
     private static final String ARQUIVO_BD = "src/src/db/dispositivos.ser";
 
+    /**
+     * Método para salvar os dispositivos em arquivo
+     * @param dispositivos dispositivo que será salvo
+    */
     public static void salvarDispositivo(Dispositivo dispositivo) throws IOException, ClassNotFoundException {
         File arquivo = new File(ARQUIVO_BD);
 
@@ -30,6 +39,10 @@ public class DispositivoRepository {
         }
     }
 
+    /**
+     * Método para listar os dispositivos
+     * @return array de dispositivos salvos no arquivo
+     */
     public static List<Dispositivo> listarTodosDispositivos() throws IOException, ClassNotFoundException {
         File arquivo = new File(ARQUIVO_BD);
 
@@ -43,6 +56,11 @@ public class DispositivoRepository {
         }
     }
 
+    /**
+     * Método para buscar dispositivos pelo nome
+     * @param nome nome do dispositivo
+     * @return dispositivo encontrado na lista de todos os dispositivos
+     */
     public static Dispositivo buscarDispositivoPorNome(String nome) throws IOException, ClassNotFoundException {
         List<Dispositivo> dispositivos = listarTodosDispositivos();
 
@@ -55,6 +73,12 @@ public class DispositivoRepository {
         throw new RuntimeException("Dispositivo não encontrado");
     }
 
+    /**
+     * Método para buscar dispositivos pelo nome e pelo tipo
+     * @param nome nome do dispositivo procurado
+     * @param tipo classe do dispositivo procurado
+     * @return dispositivo encontrado na lista de todos os dispositivos
+     */
     public static Dispositivo buscarDispositivoPorNomeETipo(String nome, String tipo) throws IOException, ClassNotFoundException {
         List<Dispositivo> dispositivos = listarTodosDispositivos();
 
@@ -67,6 +91,10 @@ public class DispositivoRepository {
         return null;
     }
 
+    /**
+     * Método para atualizar dispositivo na lista de dispositivos
+     * @param dispositivoAtualizado novo dispositivo
+     */
     public static void atualizarDispositivo(Dispositivo dispositivoAtualizado) throws IOException, ClassNotFoundException {
         String nomeDispositivo = dispositivoAtualizado.getNome();
         List<Dispositivo> dispositivos = listarTodosDispositivos();
@@ -87,6 +115,10 @@ public class DispositivoRepository {
         salvarTodosDispositivos(dispositivos);
     }
 
+    /**
+     * Método para salvar todos os dispositivos em um arquivo
+     * @param dispositivos lista de dispositivos para salvar no arquivo
+     */
     private static void salvarTodosDispositivos(List<Dispositivo> dispositivos){
         File arquivo = new File(ARQUIVO_BD);
 

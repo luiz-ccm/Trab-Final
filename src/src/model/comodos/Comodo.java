@@ -1,3 +1,9 @@
+/**
+ * Classe para comodos da casa inteligente
+ * 
+ */
+
+
 package model.comodos;
 
 import model.eletronicos.Dispositivo;
@@ -12,6 +18,11 @@ public class Comodo implements Serializable {
     private List<Dispositivo> dispositivos;
     private Integer temperatura;
 
+    /**
+     * Construtor de comodo
+     * @param nome nome do comodo
+     * @param tipoComodo tipo do comodo
+     */
     public Comodo(String nome, TipoComodo tipoComodo) {
         this.nome = nome;
         this.tipoComodo = tipoComodo;
@@ -19,14 +30,26 @@ public class Comodo implements Serializable {
         this.dispositivos = new ArrayList<>();
     }
 
+    /**
+     * Método get da temperatura do comodo
+     * @return valor do atributo temperetura
+     */
     public Integer getTemperatura() {
         return temperatura;
     }
 
+    /**
+     * Método set da temperatura do comodo
+     * @param temperatura nova temperatura
+     */
     public void setTemperatura(Integer temperatura) {
         this.temperatura = temperatura;
     }
 
+    /**
+     * Método get do nome do comodo
+     * @return valor do atributo nome
+     */
     public String getComodo() {
         return nome;
     }
@@ -35,20 +58,35 @@ public class Comodo implements Serializable {
         return nome;
     }
 
+    /**
+     * Método get do tipo de comodo
+     * @return valor do atributo tipo do comodo
+     */
     public TipoComodo getTipoComodo() {
         return tipoComodo;
     }
 
 
-
+    /**
+     * Método para adicionar dispositivo no comodo
+     * @param dispositivo novo dispositivo
+     */
     public void adicionarDispositivo(Dispositivo dispositivo) {
         dispositivos.add(dispositivo);
     }
 
+    /**
+     * Método para remover dispositivo do comodo
+     * @param dispositivo dispositivo a ser retirado
+     */
     public void removerDispositivo(Dispositivo dispositivo) {
         dispositivos.remove(dispositivo);
     }
 
+    /**
+     * Método para obter todos os dispositivos do comodo
+     * @return lista de dispositivos do comodo
+     */
     public List<Dispositivo> getDispositivos() {
         return dispositivos;
     }

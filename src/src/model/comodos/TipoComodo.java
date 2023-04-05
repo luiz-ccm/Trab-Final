@@ -1,3 +1,7 @@
+/**
+ * Classe enum para os tipos de comodos: quarto, sala, cozinha, banheiro
+ */
+
 package model.comodos;
 
 import java.awt.*;
@@ -11,10 +15,18 @@ public enum TipoComodo  {
 
     private String nome;
 
+    /**
+     * Construtor
+     * @param nome nome do comodo
+     */
     private TipoComodo(String nome){
         this.nome = nome;
     }
 
+    /**
+     * Método get do nome do comodo
+     * @return string do atributo nome
+     */
     public String getNome() {
         return nome;
     }
