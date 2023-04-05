@@ -66,4 +66,40 @@ public class DispositivoRepository {
 
         return null;
     }
+
+    public static void atualizarDispositivo(Dispositivo dispositivoAtualizado) throws IOException, ClassNotFoundException {
+        String nomeDispositivo = dispositivoAtualizado.getNome();
+        List<Dispositivo> dispositivos = listarTodosDispositivos();
+        boolean dispositivoEncontrado = false;
+
+        for (int i = 0; i < dispositivos.size(); i++) {
+            if (dispositivos.get(i).getNome().equals(nomeDispositivo)) {
+                dispositivos.set(i, dispositivoAtualizado);
+                dispositivoEncontrado = true;
+                break;
+            }
+        }
+
+        if (!dispositivoEncontrado) {
+            throw new RuntimeException("Dispositivo não encontrado");
+        }
+
+        salvarTodosDispositivos(dispositivos);
+    }
+
+    private static void salvarTodosDispositivos(List<Dispositivo> dispositivos){
+        File arquivo = new File(ARQUIVO_BD);
+
+        arquivo.delete();
+
+        arquivo = new File(ARQUIVO_BD);
+
+        dispositivos.forEach(dispositivo -> {
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO_BD))) {
+                out.writeObject(dispositivos);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
 }

@@ -16,8 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static repository.ComodoRepository.salvarComodo;
-import static repository.DispositivoRepository.buscarDispositivoPorNome;
-import static repository.DispositivoRepository.listarTodosDispositivos;
+import static repository.DispositivoRepository.*;
 
 public class CadastrarComodo extends JPanel {
     private JPanel panelListaComodos;
@@ -37,16 +36,19 @@ public class CadastrarComodo extends JPanel {
         this.setBounds(250,0,width,height);
         this.setVisible(true);
 
-        JLabel tituloGeral = new JLabel("CADASTRAR COMODO");
-        tituloGeral.setFont(new Font(tituloGeral.getName(), tituloGeral.getFont().getStyle(),30));
-        this.add(tituloGeral);
-        tituloGeral.setBounds(90,10,550,30);
+
 
         adicionandoPainelCadastroDeComodos();
 
     }
 
     private void adicionandoPainelCadastroDeComodos() {
+        JLabel tituloGeral = new JLabel("CADASTRAR COMODO");
+        tituloGeral.setFont(new Font(tituloGeral.getName(), tituloGeral.getFont().getStyle(),30));
+        this.add(tituloGeral);
+        tituloGeral.setBounds(90,10,550,30);
+
+
         JLabel tituloComodos = new JLabel("Tipo de cômodo:");
         this.add(tituloComodos);
         tituloComodos.setBounds(40,60,100,30);
@@ -95,24 +97,30 @@ public class CadastrarComodo extends JPanel {
                 Dispositivo dispositivo = null ;
                 try {
                     dispositivo = buscarDispositivoPorNome(nome);
+                    comodo.adicionarDispositivo(dispositivo);
+                    dispositivo.setComodo(comodo);
+                    atualizarDispositivo(dispositivo);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-                comodo.adicionarDispositivo(dispositivo);
-                dispositivo.setComodo(comodo);
 
             }
         });
 
         try {
             salvarComodo(comodo);
+            this.removeAll();
+            this.revalidate();
+            this.repaint();
+            adicionandoPainelCadastroDeComodos();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
     }
 
 
@@ -126,7 +134,7 @@ public class CadastrarComodo extends JPanel {
         List<Dispositivo> dispositivos = new ArrayList<>();
         try {
             dispositivos = listarTodosDispositivos().stream()
-                    .filter(d -> d.getComodo()==null)
+                    .filter(d -> d.getComodo() == null)
                     .toList();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -142,6 +150,8 @@ public class CadastrarComodo extends JPanel {
 
         this.add(panelCheckBox);
     }
+
+
 
 
 }

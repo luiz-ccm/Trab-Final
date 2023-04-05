@@ -64,11 +64,9 @@ public class ListarDispositivos extends JPanel {
     }
 
     private void mostrarComodo(String nome) {;
-        System.out.println(nome.split(" - ")[1]);
         Comodo comodo;
         try {
             comodo = buscarComodoPorNome(nome.split(" - ")[1]);
-            System.out.println(comodo);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -83,7 +81,7 @@ public class ListarDispositivos extends JPanel {
             JPanel panelDisp = new JPanel();
             panelDisp.setLayout(new GridLayout(1,3));
             JLabel labelNomeDispositivo = new JLabel(disp.getNome(), JLabel.CENTER);
-            JLabel labelTipoDispositivo = new JLabel(disp.getTipo(),JLabel.CENTER);
+            JLabel labelTipoDispositivo = new JLabel(disp.getTipo(),JLabel.LEFT);
             JCheckBox jCheckBoxEstado = new JCheckBox("estado",disp.getEstado());
 
             panelDisp.add(labelNomeDispositivo);
