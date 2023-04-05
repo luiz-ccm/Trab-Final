@@ -38,10 +38,8 @@ public class ListarDispositivos extends JPanel {
         this.panelComodosEDispositivos.setBounds(20,60,500,360);
         this.add(this.panelComodosEDispositivos);
 
-        GridBagConstraints constraintsBotoes = new GridBagConstraints();
-        constraintsBotoes.gridx=0;
-        constraintsBotoes.weightx = 4;
-        this.panelComodosEDispositivos.add(listaDeComodos(),constraintsBotoes);
+
+        this.panelComodosEDispositivos.add(listaDeComodos());
     }
 
     private Component listaDeComodos() {
