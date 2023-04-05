@@ -33,6 +33,11 @@ public class ListarDispositivos extends JPanel {
         this.setBounds(250,0,width,height);
         this.setVisible(true);
 
+
+        this.adcTelaListar();
+    }
+
+    private void adcTelaListar() {
         JLabel tituloGeral = new JLabel("LISTAR DISPOSITIVOS");
         tituloGeral.setFont(new Font(tituloGeral.getName(), tituloGeral.getFont().getStyle(),30));
         this.add(tituloGeral);
@@ -107,6 +112,11 @@ public class ListarDispositivos extends JPanel {
 
             panelDispositivoDoComodo.add(panelDisp);
 
+            JButton btnEditar = new JButton("Editar");
+            btnEditar.setBounds(230,430,80,25);
+            btnEditar.addActionListener(e -> editarComponente(comodo));
+            this.add(btnEditar);
+
         });
 
         if (painelAtual!= null)
@@ -116,5 +126,14 @@ public class ListarDispositivos extends JPanel {
         this.revalidate();
         this.repaint();
 
+    }
+
+    private void editarComponente(Comodo comodo) {
+
+
+        this.removeAll();
+        this.revalidate();
+        this.repaint();
+        this.adcTelaListar();
     }
 }
