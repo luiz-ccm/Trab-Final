@@ -75,9 +75,10 @@ public class ListarDispositivos extends JPanel {
             throw new RuntimeException(e);
         }
 
+        JPanel panelDispositivoDoComodo = new JPanel();
+        panelDispositivoDoComodo.setLayout(new GridLayout(10,1,5,5));
+
         comodo.getDispositivos().forEach(disp ->{
-            JPanel panelDispositivoDoComodo = new JPanel();
-            panelDispositivoDoComodo.setLayout(new GridLayout(10,1,5,5));
 
             JPanel panelDisp = new JPanel();
             panelDisp.setLayout(new GridLayout(1,3));
@@ -89,13 +90,16 @@ public class ListarDispositivos extends JPanel {
             panelDisp.add(labelTipoDispositivo);
             panelDisp.add(jCheckBoxEstado);
 
-            if (painelAtual!= null)
-                this.panelComodosEDispositivos.remove(painelAtual);
-            this.panelComodosEDispositivos.add(panelDisp);
-            painelAtual = panelDisp;
-            this.revalidate();
-            this.repaint();
+            panelDispositivoDoComodo.add(panelDisp);
+
         });
+
+        if (painelAtual!= null)
+            this.panelComodosEDispositivos.remove(painelAtual);
+        this.panelComodosEDispositivos.add(panelDispositivoDoComodo);
+        painelAtual = panelDispositivoDoComodo;
+        this.revalidate();
+        this.repaint();
 
     }
 }
