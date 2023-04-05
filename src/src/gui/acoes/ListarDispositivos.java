@@ -98,12 +98,12 @@ public class ListarDispositivos extends JPanel {
             JPanel panelDisp = new JPanel();
             panelDisp.setLayout(new GridLayout(1,3));
             JLabel labelNomeDispositivo = new JLabel(disp.getNome(), JLabel.CENTER);
-            JLabel labelTipoDispositivo = new JLabel(disp.getTipo(),JLabel.LEFT);
-            JCheckBox jCheckBoxEstado = new JCheckBox("estado",disp.getEstado());
+            JLabel labelTipoDispositivo = new JLabel(disp.getTipo(),JLabel.CENTER);
+            JLabel labelEstado = new JLabel(disp.getEstado()? "ligado" : "desligado",JLabel.CENTER);
 
             panelDisp.add(labelNomeDispositivo);
             panelDisp.add(labelTipoDispositivo);
-            panelDisp.add(jCheckBoxEstado);
+            panelDisp.add(labelEstado);
 
             panelDispositivoDoComodo.add(panelDisp);
 
