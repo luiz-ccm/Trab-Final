@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static repository.ComodoRepository.salvarComodo;
 import static repository.DispositivoRepository.*;
@@ -153,7 +154,7 @@ public class CadastrarComodo extends JPanel {
         try {
             dispositivos = listarTodosDispositivos().stream()
                     .filter(d -> d.getComodo() == null)
-                    .toList();
+                    .collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {

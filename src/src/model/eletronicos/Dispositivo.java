@@ -6,7 +6,6 @@ package model.eletronicos;
 
 import model.comodos.Comodo;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 public abstract class Dispositivo implements Serializable {
