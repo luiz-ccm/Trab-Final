@@ -1,3 +1,7 @@
+/**
+ * Classe da interface gráfico de cadastro de dispositivos
+ */
+
 package gui.acoes;
 
 import gui.Screen;
@@ -33,8 +37,10 @@ public class CadastrarDispositivo extends JPanel {
 
     List<JCheckBox> checkboxes = new ArrayList<>();
 
-
-
+    /**
+     * Construtor
+     * @param component ação
+     */
     public CadastrarDispositivo(Screen component){
         int width = 550;
         int height = 500;
@@ -52,6 +58,9 @@ public class CadastrarDispositivo extends JPanel {
         adicionandoPainelCadastroDeDispositivos();
     }
 
+    /**
+     * Método para adicionar o painel de cadastro de dispositivos
+     */
     private void adicionandoPainelCadastroDeDispositivos(){
         JLabel tituloComodos = new JLabel("Dispositivo:");
         this.add(tituloComodos);
@@ -79,7 +88,12 @@ public class CadastrarDispositivo extends JPanel {
         this.add(btnCadastrar);
         this.add(this.panelListaDispositivo);
     }
-        private void cadastrar(ActionEvent actionEvent) {
+    
+    /**
+     * Método para cadastrar um dispositivo
+     * @param actionEvent evento
+     */
+    private void cadastrar(ActionEvent actionEvent) {
         Dispositivo dispositivo = instanciar((TipoDispositivo) this.comboBoxTipoDispositivo.getSelectedItem());
         dispositivo.setNome(this.nomeDispositivo.getText());
         try {

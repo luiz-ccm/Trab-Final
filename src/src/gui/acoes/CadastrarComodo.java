@@ -1,3 +1,7 @@
+/**
+ * Classe da interface gráfico de cadastro de cômodo
+ */
+
 package gui.acoes;
 
 import gui.Screen;
@@ -27,6 +31,10 @@ public class CadastrarComodo extends JPanel {
 
     private JTextField textFieldNomeDoComodo;
 
+    /**
+     * Construtor
+     * @param component ação
+     */
     public CadastrarComodo(Screen component){
         int width = 550;
         int height = 500;
@@ -36,12 +44,13 @@ public class CadastrarComodo extends JPanel {
         this.setBounds(250,0,width,height);
         this.setVisible(true);
 
-
-
         adicionandoPainelCadastroDeComodos();
 
     }
 
+    /**
+     * Método para adicionar o painel de cadastro de comodos
+     */
     private void adicionandoPainelCadastroDeComodos() {
         JLabel tituloGeral = new JLabel("CADASTRAR COMODO");
         tituloGeral.setFont(new Font(tituloGeral.getName(), tituloGeral.getFont().getStyle(),30));
@@ -79,6 +88,9 @@ public class CadastrarComodo extends JPanel {
         vincularAoComodo();
     }
 
+    /**
+     * Método para adicionar botão de vínculo de dispositivo ao comodo
+     */
     private void vincularAoComodo() {
         JButton btnVincular = new JButton("vincular");
         btnVincular.addActionListener(this::efetuarVinculo);
@@ -86,6 +98,10 @@ public class CadastrarComodo extends JPanel {
         this.add(btnVincular);
     }
 
+    /**
+     * Método para efeturar o vínculo entre dispositivo e comodo
+     * @param actionEvent evento
+     */
     private void efetuarVinculo(ActionEvent actionEvent) {
         TipoComodo tipoComodo = (TipoComodo) this.comboBoxComodo.getSelectedItem();
         String nomeComodo = this.textFieldNomeDoComodo.getText();
@@ -123,7 +139,9 @@ public class CadastrarComodo extends JPanel {
 
     }
 
-
+    /**
+     * Método para listar dispositivos cadastrados
+     */
     private void listaDeDispositivosCadastrado(){
         this.checkBoxes = new ArrayList<>();
         JPanel panelCheckBox = new JPanel();

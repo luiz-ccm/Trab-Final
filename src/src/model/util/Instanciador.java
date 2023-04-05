@@ -1,3 +1,7 @@
+/**
+ * Classe para  instanciar os dispositivos conforme o tipo
+ */
+
 package model.util;
 
 import model.eletronicos.*;

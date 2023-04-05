@@ -1,3 +1,7 @@
+/**
+ * Classe da interface gráfica de listagem de dispositivos
+ */
+
 package gui.acoes;
 
 import gui.Screen;
@@ -15,6 +19,11 @@ public class ListarDispositivos extends JPanel {
     private JPanel panelComodosEDispositivos;
     private JPanel painelAtual;
     private List<JButton> btnList;
+
+    /**
+     * Construtor
+     * @param component ação
+     */
     public ListarDispositivos(Screen component){
         int width = 550;
         int height = 500;
@@ -42,6 +51,10 @@ public class ListarDispositivos extends JPanel {
         this.panelComodosEDispositivos.add(listaDeComodos());
     }
 
+    /**
+     * Método para o painel de listagem de comodos
+     * @return ação
+     */
     private Component listaDeComodos() {
         JPanel panelListaDeComodo = new JPanel();
 
@@ -63,6 +76,10 @@ public class ListarDispositivos extends JPanel {
         return panelListaDeComodo;
     }
 
+    /**
+     * Método para mostrar comodo específico
+     * @param nome nome do comodo desejado
+     */
     private void mostrarComodo(String nome) {;
         Comodo comodo;
         try {

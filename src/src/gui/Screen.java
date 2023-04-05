@@ -1,3 +1,7 @@
+/**
+ * Classe para a interface gráfica
+ */
+
 package gui;
 
 import gui.acoes.CadastrarComodo;
@@ -20,6 +24,10 @@ public class Screen extends JFrame implements ActionListener {
 
 
     private List<Dispositivo> dispositivoList;
+
+    /**
+     * Construtor
+     */
     public Screen(){
         int width = 800;
         int height = 500;
@@ -70,6 +78,10 @@ public class Screen extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Método para executar as ações de listagem e cadastro
+     * @param actionEvent ação
+     */
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if(actionEvent.getActionCommand().equals("cadastrar dispositivo")){
@@ -83,6 +95,10 @@ public class Screen extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Método para controle de ações
+     * @param component ação
+     */
     private void adicionarTelaDeAcao(JComponent component){
         if(!(componenteAtivo == null))
             this.remove(componenteAtivo);
