@@ -87,5 +87,9 @@ public class Comodo implements Serializable {
     public List<Dispositivo> getDispositivos() {
         return dispositivos;
     }
+
+    public void desvincular(Dispositivo dispositivo) {
+        dispositivos.removeIf(d -> d.getNome().equals(dispositivo.getNome()));
+    }
 }
 

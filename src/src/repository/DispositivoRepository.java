@@ -5,11 +5,14 @@
 
 package repository;
 
+import model.comodos.Comodo;
 import model.eletronicos.Dispositivo;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static repository.ComodoRepository.desvincularDoComodo;
 
 public class DispositivoRepository {
     private static final String ARQUIVO_BD = "src/src/db/dispositivos.ser";
@@ -133,5 +136,14 @@ public class DispositivoRepository {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    public static void desvincularDispositivo(Dispositivo dispositivo, Comodo comodo) throws IOException, ClassNotFoundException {
+        Dispositivo disp = buscarDispositivoPorNome(dispositivo.getNome());
+
+        disp.desvincularComodo();
+        atualizarDispositivo(disp);
+
+        desvincularDoComodo(disp,comodo);
     }
 }

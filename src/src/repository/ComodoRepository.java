@@ -7,6 +7,7 @@
 package repository;
 
 import model.comodos.Comodo;
+import model.eletronicos.Dispositivo;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -81,4 +82,51 @@ public class ComodoRepository {
             }
         }
     }
+
+    public static void desvincularDoComodo(Dispositivo dispositivo,Comodo comodo) throws IOException, ClassNotFoundException {
+        Comodo com = buscarComodoPorNome(comodo.getNome());
+        System.out.println(com.getDispositivos());
+        com.desvincular(dispositivo);
+        atualizarComodo(com);
+        System.out.println(com.getDispositivos());
+
+
+    }
+
+    public static void atualizarComodo(Comodo comodoAtualizado) throws IOException, ClassNotFoundException {
+        String nomeComodo = comodoAtualizado.getNome();
+        List<Comodo> comodos = listarTodosComodos();
+        boolean comodoEncontrado = false;
+
+        for (int i = 0; i < comodos.size(); i++) {
+            if (comodos.get(i).getNome().equals(nomeComodo)) {
+                comodos.set(i, comodoAtualizado);
+                comodoEncontrado = true;
+                break;
+            }
+        }
+
+        if (!comodoEncontrado) {
+            throw new RuntimeException("Dispositivo não encontrado");
+        }
+
+        salvaTodosComodos(comodos);
+    }
+
+    private static void salvaTodosComodos(List<Comodo> comodos) {
+        File arquivo = new File(ARQUIVO_BD);
+
+        arquivo.delete();
+
+        arquivo = new File(ARQUIVO_BD);
+
+        comodos.forEach(dispositivo -> {
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO_BD))) {
+                out.writeObject(comodos);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
 }

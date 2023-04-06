@@ -112,12 +112,12 @@ public class ListarDispositivos extends JPanel {
 
             panelDispositivoDoComodo.add(panelDisp);
 
-            JButton btnEditar = new JButton("Editar");
-            btnEditar.setBounds(230,430,80,25);
-            btnEditar.addActionListener(e -> editarComponente(comodo));
-            this.add(btnEditar);
-
         });
+
+        JButton btnEditar = new JButton("Editar");
+        btnEditar.setBounds(230,430,80,25);
+        btnEditar.addActionListener(e -> editarComponente(comodo));
+        this.add(btnEditar);
 
         if (painelAtual!= null)
             this.panelComodosEDispositivos.remove(painelAtual);
@@ -129,7 +129,7 @@ public class ListarDispositivos extends JPanel {
     }
 
     private void editarComponente(Comodo comodo) {
-
+        new EditarComponentes(comodo);
 
         this.removeAll();
         this.revalidate();

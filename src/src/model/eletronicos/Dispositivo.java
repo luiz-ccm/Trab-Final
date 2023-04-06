@@ -86,5 +86,9 @@ public abstract class Dispositivo implements Serializable {
                 ", estado=" + this.estado +
                 '}';
     }
+
+    public void desvincularComodo() {
+        this.comodo =null;
+    }
 }
 
