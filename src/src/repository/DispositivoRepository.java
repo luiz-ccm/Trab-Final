@@ -5,6 +5,7 @@
 
 package repository;
 
+import gui.acoes.exceptions.DispositivoJaExisteException;
 import model.comodos.Comodo;
 import model.eletronicos.Dispositivo;
 
@@ -12,7 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static repository.ComodoRepository.desvincularDoComodo;
+import static repository.ComodoRepository.*;
 
 public class DispositivoRepository {
     private static final String ARQUIVO_BD = "src/src/db/dispositivos.ser";
@@ -38,7 +39,7 @@ public class DispositivoRepository {
                 out.writeObject(dispositivos);
             }
         } else {
-            throw new RuntimeException("Já existe um dispositivo com esse nome e tipo");
+            throw new DispositivoJaExisteException("Já existe um dispositivo com esse nome e tipo");
         }
     }
 
@@ -143,5 +144,23 @@ public class DispositivoRepository {
         disp.desvincularComodo();
         atualizarDispositivo(disp);
         desvincularDoComodo(disp,comodo);
+    }
+
+    public static void ligarDesligarNoBanco(Dispositivo dispositivo, Comodo comodo) throws IOException, ClassNotFoundException {
+        Dispositivo disp = buscarDispositivoPorNome(dispositivo.getNome());
+        Comodo com = buscarComodoPorNome(comodo.getNome());
+        com.desvincular(disp);
+        disp.ligarDesligar();
+        com.adicionarDispositivo(disp);
+        atualizarComodo(com);
+        Comodo com2 = buscarComodoPorNome(comodo.getNome());
+        atualizarDispositivo(disp);
+    }
+
+    public static void excluirDispositivoDoBanco(Dispositivo dispositivo, Comodo comodo) throws IOException, ClassNotFoundException {
+        desvincularDoComodo(dispositivo,comodo);
+        List<Dispositivo> dispositivos = listarTodosDispositivos();
+        dispositivos.removeIf(d -> d.getNome().equals(dispositivo.getNome()));
+        salvarTodosDispositivos(dispositivos);
     }
 }

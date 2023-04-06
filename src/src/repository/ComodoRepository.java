@@ -92,8 +92,6 @@ public class ComodoRepository {
         com.desvincular(dispositivo);
         atualizarComodo(com);
         System.out.println(com.getDispositivos());
-
-
     }
 
     public static void atualizarComodo(Comodo comodoAtualizado) throws IOException, ClassNotFoundException {
@@ -134,9 +132,8 @@ public class ComodoRepository {
 
     public static void excluirComodoDoBanco(Comodo comodo) throws IOException, ClassNotFoundException {
         comodo.getDispositivos().forEach(dispositivo ->{
-            Dispositivo disp = null;
             try {
-                disp = buscarDispositivoPorNome(dispositivo.getNome());
+                Dispositivo disp = buscarDispositivoPorNome(dispositivo.getNome());
                 disp.desvincularComodo();
                 atualizarDispositivo(disp);
             } catch (IOException e) {
@@ -144,7 +141,6 @@ public class ComodoRepository {
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-
         });
 
         Comodo com = buscarComodoPorNome(comodo.getNome());

@@ -5,25 +5,20 @@
 package gui.acoes;
 
 import gui.Screen;
-import model.comodos.TipoComodo;
+import gui.acoes.exceptions.DadosInvalidosException;
+import gui.acoes.exceptions.DispositivoJaExisteException;
 import model.eletronicos.Dispositivo;
 import model.eletronicos.TipoDispositivo;
-import repository.DispositivoRepository;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.DataInput;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-import static model.eletronicos.TipoDispositivo.enumCorrespondente;
 import static model.util.Instanciador.instanciar;
-import static repository.DispositivoRepository.listarTodosDispositivos;
 import static repository.DispositivoRepository.salvarDispositivo;
 
 public class CadastrarDispositivo extends JPanel {
@@ -50,10 +45,7 @@ public class CadastrarDispositivo extends JPanel {
         this.setBounds(250,0,width,height);
         this.setVisible(true);
 
-        JLabel tituloGeral = new JLabel("CADASTRAR DISPOSITIVO");
-        tituloGeral.setFont(new Font(tituloGeral.getName(), tituloGeral.getFont().getStyle(),30));
-        this.add(tituloGeral);
-        tituloGeral.setBounds(70,10,550,30);
+
 
         adicionandoPainelCadastroDeDispositivos();
     }
@@ -62,6 +54,11 @@ public class CadastrarDispositivo extends JPanel {
      * Método para adicionar o painel de cadastro de dispositivos
      */
     private void adicionandoPainelCadastroDeDispositivos(){
+        JLabel tituloGeral = new JLabel("CADASTRAR DISPOSITIVO");
+        tituloGeral.setFont(new Font(tituloGeral.getName(), tituloGeral.getFont().getStyle(),30));
+        this.add(tituloGeral);
+        tituloGeral.setBounds(70,10,550,30);
+
         JLabel tituloComodos = new JLabel("Dispositivo:");
         this.add(tituloComodos);
         tituloComodos.setBounds(20,60,150,30);
@@ -95,14 +92,33 @@ public class CadastrarDispositivo extends JPanel {
      */
     private void cadastrar(ActionEvent actionEvent) {
         Dispositivo dispositivo = instanciar((TipoDispositivo) this.comboBoxTipoDispositivo.getSelectedItem());
-        dispositivo.setNome(this.nomeDispositivo.getText());
+        String nomeDispositivo =this.nomeDispositivo.getText();
+        if(nomeDispositivo.length() <= 2) {
+            JOptionPane.showMessageDialog(null, "Nome tem que ter mais de 2 caracteres!", "Erro", JOptionPane.ERROR_MESSAGE);
+            throw new DadosInvalidosException("Nome tem que ter mais de 2 caracteres!");
+        }
+        dispositivo.setNome(nomeDispositivo);
+
         try {
             salvarDispositivo(dispositivo);
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (DispositivoJaExisteException e) {
+            JOptionPane.showMessageDialog(null, "Dispositivo Já Cadastrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            throw new DispositivoJaExisteException("Dispositivo Já Cadastrado!");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        }
+        this.removeAll();
+        this.revalidate();
+        this.repaint();
+
+        adicionandoPainelCadastroDeDispositivos();
+        JOptionPane.showMessageDialog(null, "Dispositivo criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+
+    }
 
 
 

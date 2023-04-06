@@ -5,6 +5,7 @@
 package gui.acoes;
 
 import gui.Screen;
+import gui.acoes.exceptions.DadosInvalidosException;
 import model.comodos.Comodo;
 import model.comodos.TipoComodo;
 import model.eletronicos.Dispositivo;
@@ -106,6 +107,14 @@ public class CadastrarComodo extends JPanel {
     private void efetuarVinculo(ActionEvent actionEvent) {
         TipoComodo tipoComodo = (TipoComodo) this.comboBoxComodo.getSelectedItem();
         String nomeComodo = this.textFieldNomeDoComodo.getText();
+        if(nomeComodo.length()<=2){
+            JOptionPane.showMessageDialog(null, "Nome do cômodo tem que ter mais de 2 caracteres!", "Erro", JOptionPane.ERROR_MESSAGE);
+            throw new DadosInvalidosException("Nome do cômodo tem que ter mais de 2 caracteres!");
+        }
+        if(this.checkBoxes.stream().noneMatch(JCheckBox::isSelected)){
+            JOptionPane.showMessageDialog(null, "Vincule ao menos um dispositivo ao Comodo!", "Erro", JOptionPane.ERROR_MESSAGE);
+            throw new DadosInvalidosException("Vincule ao menos um dispositivo ao Comodo!");
+        }
         Comodo comodo = new Comodo(nomeComodo,tipoComodo);
 
         this.checkBoxes.forEach(c ->{
@@ -131,6 +140,8 @@ public class CadastrarComodo extends JPanel {
             this.removeAll();
             this.revalidate();
             this.repaint();
+            JOptionPane.showMessageDialog(null, "Comodo criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
             adicionandoPainelCadastroDeComodos();
         } catch (IOException e) {
             throw new RuntimeException(e);
