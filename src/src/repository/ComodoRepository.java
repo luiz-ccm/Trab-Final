@@ -9,6 +9,7 @@ package repository;
 import model.comodos.Comodo;
 import model.eletronicos.Dispositivo;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +82,7 @@ public class ComodoRepository {
     private static void validarComodo(List<Comodo> comodos, Comodo comodo) {
         for (Comodo c : comodos) {
             if (c.getNome().equalsIgnoreCase(comodo.getNome()) && c.getTipoComodo().equals(comodo.getTipoComodo())) {
+                JOptionPane.showMessageDialog(null, "Já existe um comodo com esse nome e tipo!", "Erro", JOptionPane.ERROR_MESSAGE);
                 throw new RuntimeException("Já existe um comodo com esse nome e tipo");
             }
         }
@@ -88,10 +90,8 @@ public class ComodoRepository {
 
     public static void desvincularDoComodo(Dispositivo dispositivo,Comodo comodo) throws IOException, ClassNotFoundException {
         Comodo com = buscarComodoPorNome(comodo.getNome());
-        System.out.println(com.getDispositivos());
         com.desvincular(dispositivo);
         atualizarComodo(com);
-        System.out.println(com.getDispositivos());
     }
 
     public static void atualizarComodo(Comodo comodoAtualizado) throws IOException, ClassNotFoundException {

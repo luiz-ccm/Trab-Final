@@ -78,7 +78,6 @@ public class EditarComponentes extends JFrame {
     private void vincularDispositivoAoComodo(Comodo comodo) {
 
         String nome = this.comboBoxDispositivos.getSelectedItem().toString().split(" - ")[1];
-        System.out.println("nome: " + nome);
         Dispositivo dispositivo = null ;
         Comodo com = null;
         try {
