@@ -1,5 +1,6 @@
 package gui.acoes;
 
+import gui.acoes.exceptions.DadosInvalidosException;
 import model.comodos.Comodo;
 import model.eletronicos.Dispositivo;
 
@@ -61,14 +62,23 @@ public class EditarComponentes extends JFrame {
         this.comboBoxDispositivos.setBounds(120,50,150,20);
         this.add(comboBoxDispositivos);
         JButton btnVincularDispositivo = new JButton("vincular");
-        btnVincularDispositivo.addActionListener(e -> vincularDispositivoAoComodo(comodo));
+        btnVincularDispositivo.addActionListener(e -> {
+            if(comboBoxDispositivos.getItemCount() == 0){
+                JOptionPane.showMessageDialog(null, "primeiramente cadestre um dispositivo!", "Erro", JOptionPane.ERROR_MESSAGE);
+                throw new DadosInvalidosException("primeiramente cadestre um dispositivo!");
+            }
+
+             vincularDispositivoAoComodo(comodo);
+        });
         btnVincularDispositivo.setBounds(300,50,100,20);
         this.add(btnVincularDispositivo);
         this.add(panelListaDeDispositivos);
     }
 
     private void vincularDispositivoAoComodo(Comodo comodo) {
+
         String nome = this.comboBoxDispositivos.getSelectedItem().toString().split(" - ")[1];
+        System.out.println("nome: " + nome);
         Dispositivo dispositivo = null ;
         Comodo com = null;
         try {

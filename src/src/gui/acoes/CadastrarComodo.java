@@ -111,10 +111,7 @@ public class CadastrarComodo extends JPanel {
             JOptionPane.showMessageDialog(null, "Nome do cômodo tem que ter mais de 2 caracteres!", "Erro", JOptionPane.ERROR_MESSAGE);
             throw new DadosInvalidosException("Nome do cômodo tem que ter mais de 2 caracteres!");
         }
-        if(this.checkBoxes.stream().noneMatch(JCheckBox::isSelected)){
-            JOptionPane.showMessageDialog(null, "Vincule ao menos um dispositivo ao Comodo!", "Erro", JOptionPane.ERROR_MESSAGE);
-            throw new DadosInvalidosException("Vincule ao menos um dispositivo ao Comodo!");
-        }
+
         Comodo comodo = new Comodo(nomeComodo,tipoComodo);
 
         this.checkBoxes.forEach(c ->{
