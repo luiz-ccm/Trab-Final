@@ -86,7 +86,7 @@ public class EditarComponentes extends JFrame {
             ligarDesligarNoBanco(disp, comodo);
             estadoDisp.setText(disp.getEstado() ? "ligado" : "desligado");
             this.dispose();
-            JOptionPane.showMessageDialog(null, "Dispositivo " + disp.getTipo() + (disp.getEstado()?" Ligado":" deligado") + " com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Dispositivo " + disp.getTipo() + (disp.getEstado()?" desligado":" ligado") + " com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
