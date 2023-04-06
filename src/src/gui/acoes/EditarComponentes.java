@@ -6,12 +6,14 @@ import model.eletronicos.Dispositivo;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 
-import static repository.ComodoRepository.excluirComodoDoBanco;
+import static repository.ComodoRepository.*;
 import static repository.DispositivoRepository.*;
 
 public class EditarComponentes extends JFrame {
     private JLabel estadoDisp;
+    private JComboBox<String> comboBoxDispositivos;
     private JPanel container;
 
     public EditarComponentes(Comodo comodo) {
@@ -41,9 +43,50 @@ public class EditarComponentes extends JFrame {
 
         JPanel panelListaDeDispositivos = new JPanel();
         panelListaDeDispositivos.add(listaDeDispositivos(comodo));
-        panelListaDeDispositivos.setBounds(5,50,650,300);
-        panelListaDeDispositivos.setBackground(new Color(217, 39, 39));
+        panelListaDeDispositivos.setBounds(5,100,650,300);
+
+        this.comboBoxDispositivos = new JComboBox<>();
+        List<Dispositivo> todosDispositivosDisponiveis;
+        try {
+            todosDispositivosDisponiveis = listarTodosDispositivos();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        todosDispositivosDisponiveis.stream().filter(d -> d.getComodo() == null).forEach(disp -> {
+            comboBoxDispositivos.addItem(disp.getTipo() + " - " + disp.getNome());
+        });
+        this.comboBoxDispositivos.setBounds(120,50,150,20);
+        this.add(comboBoxDispositivos);
+        JButton btnVincularDispositivo = new JButton("vincular");
+        btnVincularDispositivo.addActionListener(e -> vincularDispositivoAoComodo(comodo));
+        btnVincularDispositivo.setBounds(300,50,100,20);
+        this.add(btnVincularDispositivo);
         this.add(panelListaDeDispositivos);
+    }
+
+    private void vincularDispositivoAoComodo(Comodo comodo) {
+        String nome = this.comboBoxDispositivos.getSelectedItem().toString().split(" - ")[1];
+        Dispositivo dispositivo = null ;
+        Comodo com = null;
+        try {
+            dispositivo = buscarDispositivoPorNome(nome);
+            com = buscarComodoPorNome(comodo.getNome());
+            com.adicionarDispositivo(dispositivo);
+            dispositivo.setComodo(com);
+            atualizarDispositivo(dispositivo);
+            atualizarComodo(com);
+            JOptionPane.showMessageDialog(null, "Dispositivo vinculado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        this.dispose();
+
     }
 
     private Component listaDeDispositivos(Comodo comodo) {
