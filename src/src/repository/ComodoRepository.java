@@ -13,6 +13,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static repository.DispositivoRepository.atualizarDispositivo;
+import static repository.DispositivoRepository.buscarDispositivoPorNome;
+
 public class ComodoRepository {
     private static final String ARQUIVO_BD = "src/src/db/comodos.ser";
 
@@ -127,6 +130,33 @@ public class ComodoRepository {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    public static void excluirComodoDoBanco(Comodo comodo) throws IOException, ClassNotFoundException {
+        comodo.getDispositivos().forEach(dispositivo ->{
+            Dispositivo disp = null;
+            try {
+                disp = buscarDispositivoPorNome(dispositivo.getNome());
+                disp.desvincularComodo();
+                atualizarDispositivo(disp);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+
+        Comodo com = buscarComodoPorNome(comodo.getNome());
+        excluir(com);
+
+    }
+
+    private static void excluir(Comodo com) throws IOException, ClassNotFoundException {
+        List<Comodo> comodos = listarTodosComodos();
+        comodos.removeIf(c -> c.getNome().equals(com.getNome()));
+
+        salvaTodosComodos(comodos);
     }
 
 }

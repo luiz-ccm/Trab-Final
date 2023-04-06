@@ -140,10 +140,8 @@ public class DispositivoRepository {
 
     public static void desvincularDispositivo(Dispositivo dispositivo, Comodo comodo) throws IOException, ClassNotFoundException {
         Dispositivo disp = buscarDispositivoPorNome(dispositivo.getNome());
-
         disp.desvincularComodo();
         atualizarDispositivo(disp);
-
         desvincularDoComodo(disp,comodo);
     }
 }
