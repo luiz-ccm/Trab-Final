@@ -20,8 +20,10 @@ public class DispositivoRepository {
 
     /**
      * Método para salvar os dispositivos em arquivo
-     * @param dispositivos dispositivo que será salvo
-    */
+     * @param dispositivo dispositivo que será salvo
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static void salvarDispositivo(Dispositivo dispositivo) throws IOException, ClassNotFoundException {
         File arquivo = new File(ARQUIVO_BD);
 
@@ -46,6 +48,8 @@ public class DispositivoRepository {
     /**
      * Método para listar os dispositivos
      * @return array de dispositivos salvos no arquivo
+     * @throws IOException
+     * @throws ClassNotFoundException
      */
     public static List<Dispositivo> listarTodosDispositivos() throws IOException, ClassNotFoundException {
         File arquivo = new File(ARQUIVO_BD);
@@ -64,6 +68,8 @@ public class DispositivoRepository {
      * Método para buscar dispositivos pelo nome
      * @param nome nome do dispositivo
      * @return dispositivo encontrado na lista de todos os dispositivos
+     * @throws IOException
+     * @throws ClassNotFoundException
      */
     public static Dispositivo buscarDispositivoPorNome(String nome) throws IOException, ClassNotFoundException {
         List<Dispositivo> dispositivos = listarTodosDispositivos();
@@ -82,6 +88,8 @@ public class DispositivoRepository {
      * @param nome nome do dispositivo procurado
      * @param tipo classe do dispositivo procurado
      * @return dispositivo encontrado na lista de todos os dispositivos
+     * @throws IOException
+     * @throws ClassNotFoundException
      */
     public static Dispositivo buscarDispositivoPorNomeETipo(String nome, String tipo) throws IOException, ClassNotFoundException {
         List<Dispositivo> dispositivos = listarTodosDispositivos();
@@ -98,6 +106,8 @@ public class DispositivoRepository {
     /**
      * Método para atualizar dispositivo na lista de dispositivos
      * @param dispositivoAtualizado novo dispositivo
+     * @throws IOException
+     * @throws ClassNotFoundException
      */
     public static void atualizarDispositivo(Dispositivo dispositivoAtualizado) throws IOException, ClassNotFoundException {
         String nomeDispositivo = dispositivoAtualizado.getNome();
@@ -139,6 +149,13 @@ public class DispositivoRepository {
         });
     }
 
+    /**
+     * Método para desvincular dispositivo de comodo
+     * @param dispositivo dispositivo a ser desvinculado
+     * @param comodo comodo a ser desvinculado
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static void desvincularDispositivo(Dispositivo dispositivo, Comodo comodo) throws IOException, ClassNotFoundException {
         Dispositivo disp = buscarDispositivoPorNome(dispositivo.getNome());
         disp.desvincularComodo();
@@ -146,6 +163,13 @@ public class DispositivoRepository {
         desvincularDoComodo(disp,comodo);
     }
 
+    /**
+     * Método para ligar ou desligar o dispositivo no bando de dados
+     * @param dispositivo dispositivo a ser ligado/desligado
+     * @param comodo comodo ao qual pertence o dispositivo
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static void ligarDesligarNoBanco(Dispositivo dispositivo, Comodo comodo) throws IOException, ClassNotFoundException {
         Dispositivo disp = buscarDispositivoPorNome(dispositivo.getNome());
         Comodo com = buscarComodoPorNome(comodo.getNome());
@@ -157,6 +181,13 @@ public class DispositivoRepository {
         atualizarDispositivo(disp);
     }
 
+    /**
+     * Método para excluir dispositivo do banco de dados
+     * @param dispositivo dispositivo a ser excluido
+     * @param comodo como ao qual pertence o dispositivo
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static void excluirDispositivoDoBanco(Dispositivo dispositivo, Comodo comodo) throws IOException, ClassNotFoundException {
         desvincularDoComodo(dispositivo,comodo);
         List<Dispositivo> dispositivos = listarTodosDispositivos();

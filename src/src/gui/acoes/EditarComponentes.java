@@ -1,3 +1,7 @@
+/**
+ * Classe para ediar os componentes de um comodo
+ */
+
 package gui.acoes;
 
 import gui.acoes.exceptions.DadosInvalidosException;
@@ -17,6 +21,10 @@ public class EditarComponentes extends JFrame {
     private JComboBox<String> comboBoxDispositivos;
     private JPanel container;
 
+    /**
+     * Construtor
+     * @param comodo comodo que terá componenetes alterados
+     */
     public EditarComponentes(Comodo comodo) {
         super("Editar Componentes");
         this.setLocationRelativeTo(null);
@@ -25,11 +33,12 @@ public class EditarComponentes extends JFrame {
         this.setVisible(true);
 
         addTelaInicial(comodo);
-
-
     }
 
-
+    /**
+     * Método para adicionar a tela inicial
+     * @param comodo comodo que terá os componentes alterados
+     */
     private void addTelaInicial(Comodo comodo){
         JLabel labelNomeComodo = new JLabel(comodo.getNome() + " - " + comodo.getTipoComodo(),JLabel.CENTER);
         labelNomeComodo.setFont(new Font(labelNomeComodo.getName(), labelNomeComodo.getFont().getStyle(),24));
@@ -75,6 +84,10 @@ public class EditarComponentes extends JFrame {
         this.add(panelListaDeDispositivos);
     }
 
+    /**
+     * Método para vincular dispositivos em comodos
+     * @param comodo comodo que terá componentes alterados
+     */
     private void vincularDispositivoAoComodo(Comodo comodo) {
 
         String nome = this.comboBoxDispositivos.getSelectedItem().toString().split(" - ")[1];
@@ -98,6 +111,11 @@ public class EditarComponentes extends JFrame {
 
     }
 
+    /**
+     * Método para listar dispositivos do comodo
+     * @param comodo comodo dos dispositivos
+     * @return panel da lista dos dispositivos
+     */
     private Component listaDeDispositivos(Comodo comodo) {
         JPanel listadisp = new JPanel();
         listadisp.setLayout(new GridLayout(10,1,10,10));
@@ -131,8 +149,11 @@ public class EditarComponentes extends JFrame {
         return listadisp;
     }
 
-
-
+    /**
+     * Método para ligar/desligar dispositivo
+     * @param disp dispositivo que terá estado alterado
+     * @param comodo comodo do dispositivo
+     */
     private void ligarDesligar(Dispositivo disp, Comodo comodo) {
         try {
             ligarDesligarNoBanco(disp, comodo);
@@ -148,6 +169,11 @@ public class EditarComponentes extends JFrame {
 
     }
 
+    /**
+     * Método para desvincular dispositivos do comodo
+     * @param comodo comodo do dispositivo
+     * @param disp dispositivo que será desvinculado
+     */
     private void desvincularDispositivoDoComodo(Comodo comodo, Dispositivo disp) {
 
         try {
@@ -161,6 +187,11 @@ public class EditarComponentes extends JFrame {
         }
     }
 
+    /**
+     * Método para excluir dispositivo do banco de dados
+     * @param disp dispositivo a ser excluido
+     * @param comodo comodo do dispositivo
+     */
     private void excluirDispositivo(Dispositivo disp, Comodo comodo) {
         try {
             excluirDispositivoDoBanco(disp,comodo);
@@ -174,6 +205,10 @@ public class EditarComponentes extends JFrame {
         }
     }
 
+    /**
+     * Método para excluir comodo do banco de dados
+     * @param comodo comodo que será excluido
+     */
     private void excluirComodo(Comodo comodo) {
         try {
             excluirComodoDoBanco(comodo);

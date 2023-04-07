@@ -26,6 +26,7 @@ public class CadastrarDispositivo extends JPanel {
     private JPanel panelListaDispositivo;
 
     private JTextField nomeDispositivo;
+    
     List<TipoDispositivo> tipoDispositivo;
 
     private JComboBox<TipoDispositivo> comboBoxTipoDispositivo;

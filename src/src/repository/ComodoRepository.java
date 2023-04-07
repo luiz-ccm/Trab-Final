@@ -94,6 +94,12 @@ public class ComodoRepository {
         atualizarComodo(com);
     }
 
+    /**
+     * Método para atualizar o comodo
+     * @param comodoAtualizado comodo a ser atualizado
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static void atualizarComodo(Comodo comodoAtualizado) throws IOException, ClassNotFoundException {
         String nomeComodo = comodoAtualizado.getNome();
         List<Comodo> comodos = listarTodosComodos();
@@ -114,6 +120,10 @@ public class ComodoRepository {
         salvaTodosComodos(comodos);
     }
 
+    /**
+     * Método para salvar comodos no banco de dados
+     * @param comodos comodo a ser salvo
+     */
     private static void salvaTodosComodos(List<Comodo> comodos) {
         File arquivo = new File(ARQUIVO_BD);
 
@@ -130,6 +140,12 @@ public class ComodoRepository {
         });
     }
 
+    /**
+     * Método para excluir comodo do banco de dados
+     * @param comodo comodo a ser excluido
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static void excluirComodoDoBanco(Comodo comodo) throws IOException, ClassNotFoundException {
         comodo.getDispositivos().forEach(dispositivo ->{
             try {
@@ -148,6 +164,12 @@ public class ComodoRepository {
 
     }
 
+    /**
+     * Método para excluir comodo da lista de comodos
+     * @param com comodo a ser excluido
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private static void excluir(Comodo com) throws IOException, ClassNotFoundException {
         List<Comodo> comodos = listarTodosComodos();
         comodos.removeIf(c -> c.getNome().equals(com.getNome()));

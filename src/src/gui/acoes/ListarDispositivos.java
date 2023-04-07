@@ -37,6 +37,9 @@ public class ListarDispositivos extends JPanel {
         this.adcTelaListar();
     }
 
+    /**
+     * Método para adicionar tela para listar dispositivos
+     */
     private void adcTelaListar() {
         JLabel tituloGeral = new JLabel("LISTAR DISPOSITIVOS");
         tituloGeral.setFont(new Font(tituloGeral.getName(), tituloGeral.getFont().getStyle(),30));
@@ -128,6 +131,10 @@ public class ListarDispositivos extends JPanel {
 
     }
 
+    /**
+     * Método para editar componentes de comodo
+     * @param comodo comodo que terá componentes editados
+     */
     private void editarComponente(Comodo comodo) {
         new EditarComponentes(comodo);
 

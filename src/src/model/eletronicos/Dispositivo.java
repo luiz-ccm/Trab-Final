@@ -87,6 +87,9 @@ public abstract class Dispositivo implements Serializable {
                 '}';
     }
 
+    /**
+     * Método para desvincular dispositivo de comodo
+     */
     public void desvincularComodo() {
         this.comodo =null;
     }

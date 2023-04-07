@@ -88,6 +88,10 @@ public class Comodo implements Serializable {
         return dispositivos;
     }
 
+    /**
+     * Método para desvincular dispositivo do comodo
+     * @param dispositivo dispositivo a ser desvinculado
+     */
     public void desvincular(Dispositivo dispositivo) {
         dispositivos.removeIf(d -> d.getNome().equals(dispositivo.getNome()));
     }
