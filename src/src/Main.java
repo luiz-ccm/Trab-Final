@@ -9,7 +9,6 @@
  * Luiz Arthur Coelho De Castro Moura
  * Matheus Maica Goss Rodrigues
  *
- *
  **/
 
 import gui.Screen;
